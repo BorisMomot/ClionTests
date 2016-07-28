@@ -12,13 +12,13 @@ void TestStates::SetUp() {
 }
 
 void TestStates::TearDown() {
-    Test::TearDown;
+    Test::TearDown();
     cout<<"Tear DOWN!"<<endl;
 }
 
 TestStates::TestStates() {
     object1 = SomeObject();
-    object2 = SomeObject(make_shared<AbstractState>(new State1()));
+    object2 = SomeObject();
 }
 
 //----------------------------------------------------------------------------------------------------------------------

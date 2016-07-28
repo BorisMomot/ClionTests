@@ -2,7 +2,7 @@
 // Created by boris on 27.07.16.
 //
 
-#include <bits/shared_ptr.h>
+//#include <bits/shared_ptr.h>
 #include <memory>
 #include <iostream>
 #include "State.h"
@@ -14,12 +14,12 @@ using namespace std;
 AbstractState::~AbstractState() {}
 
 AbstractState::AbstractState(SomeObject* obj) {
-    _obj = make_shared<SomeObject>(obj);
+    _obj = shared_ptr<SomeObject>(obj);
 }
 
 void AbstractState::Calculate() {}
 
-void AbstractState::ChangeState(std::shared_ptr<SomeObject> Object, std::shared_ptr<AbstractState> newState) {
+void AbstractState::ChangeState(SomeObject* Object, std::shared_ptr<AbstractState> newState) {
     Object->ChangeState(newState);
 }
 //----------------------------------------------------------------------------------------------------------------------
@@ -47,7 +47,7 @@ void SomeObject::setSomefloat(float somefloat) {
     SomeObject::somefloat = somefloat;
 }
 
-void SomeObject::ChangeState(AbstractState *newState) {
+void SomeObject::ChangeState(shared_ptr<AbstractState> newState) {
     _currentState = newState;
 }
 
@@ -55,7 +55,7 @@ void SomeObject::ChangeState(AbstractState *newState) {
 SomeObject::~SomeObject() {}
 
 SomeObject::SomeObject() {
-    _currentState = State1();
+    _currentState = make_shared<State1>(State1(this));
 }
 
 void SomeObject::CalculateState() {
@@ -66,19 +66,19 @@ void SomeObject::SetState(int stateNumber) {
     switch (stateNumber) {
         case 1:
             cout<<"Переводим SomeObject в состояние 1"<<endl;
-            _currentState->ChangeState(make_shared<AbstractState>(new State1(this)));
+            _currentState->ChangeState(this, make_shared<State1>(State1(this)));
             break;
         case 2:
             cout<<"Переводим SomeObject в состояние 2"<<endl;
-            _currentState->ChangeState(make_shared<AbstractState>(new State2(this)));
+            _currentState->ChangeState(this, make_shared<State2>(State2(this)));
             break;
         case 3:
             cout<<"Переводим SomeObject в состояние 3"<<endl;
-            _currentState->ChangeState(make_shared<AbstractState>(new State3(this)));
+            _currentState->ChangeState(this, make_shared<State3>(State3(this)));
             break;
         default:
             cout<<"Переводим SomeObject в состояние 1"<<endl;
-            _currentState->ChangeState(make_shared<AbstractState>(new State1(this)));
+            _currentState->ChangeState(this, make_shared<State1>(State1(this)));
             break;
         }
 }

@@ -5,7 +5,6 @@
 #ifndef LEARNINGTEST_TESTSTATES_H
 #define LEARNINGTEST_TESTSTATES_H
 
-#include <State>
 #include <gtest/gtest.h>
 #include <State/State.h>
 

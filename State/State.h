@@ -5,10 +5,10 @@
 #ifndef LEARNINGTEST_STATE_H
 #define LEARNINGTEST_STATE_H
 
-#include <bits/shared_ptr.h>
+//#include <bits/shared_ptr.h>
 #include <memory>
 
-class SomeObject{};
+class SomeObject;
 
 class AbstractState {
 public:
@@ -16,8 +16,9 @@ public:
     virtual ~AbstractState();
     virtual void Calculate() = 0;
 
+    void ChangeState(SomeObject* Object, std::shared_ptr<AbstractState> newState);
+
 protected:
-    void ChangeState(std::shared_ptr<SomeObject> Object, std::shared_ptr<AbstractState> newState);
     std::shared_ptr<SomeObject> _obj;
 private:
 };
@@ -50,7 +51,7 @@ public:
 
 class SomeObject {
 public:
-    SomeObject(std::shared_ptr<AbstractState> &_currentState);
+    SomeObject(std::shared_ptr<AbstractState> _currentState);
 
     SomeObject();
     virtual ~SomeObject();
@@ -72,7 +73,7 @@ private:
     std::shared_ptr<AbstractState> _currentState;
 
     friend class AbstractState;
-    void ChangeState(AbstractState* newState);
+    void ChangeState(std::shared_ptr<AbstractState> newState);
 };
 
 
