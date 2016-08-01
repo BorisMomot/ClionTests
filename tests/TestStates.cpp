@@ -19,6 +19,8 @@ void TestStates::TearDown() {
 TestStates::TestStates() {
     object1 = SomeObject();
     object2 = SomeObject();
+    object1.SetState(1);
+    object2.SetState(1);
 }
 
 //----------------------------------------------------------------------------------------------------------------------

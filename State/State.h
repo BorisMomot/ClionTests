@@ -15,11 +15,10 @@ public:
     AbstractState(SomeObject* obj);
     virtual ~AbstractState();
     virtual void Calculate() = 0;
-
-    void ChangeState(SomeObject* Object, std::shared_ptr<AbstractState> newState);
+    static void ChangeState(SomeObject* Object, AbstractState* newState);
 
 protected:
-    std::shared_ptr<SomeObject> _obj;
+    SomeObject* _obj;
 private:
 };
 
@@ -27,23 +26,26 @@ private:
 //----------------------------------------------------------------------------------------------------------------------
 class State1: public AbstractState {
 public:
-    State1(SomeObject *obj);
-
+    State1(SomeObject* obj);
     virtual void Calculate () override;
+private:
+//    static State1* _instance;
 };
 //----------------------------------------------------------------------------------------------------------------------
 class State2: public AbstractState {
 public:
-    State2(SomeObject *obj);
-
+    State2(SomeObject* obj);
     virtual void Calculate () override;
+private:
+//    static State2* _instance;
 };
 //----------------------------------------------------------------------------------------------------------------------
 class State3: public AbstractState {
 public:
-    State3(SomeObject *obj);
-
+    State3(SomeObject* obj);
     virtual void Calculate () override;
+private:
+//    static State3* _instance;
 };
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -51,7 +53,7 @@ public:
 
 class SomeObject {
 public:
-    SomeObject(std::shared_ptr<AbstractState> _currentState);
+//    SomeObject(AbstractState* _currentState);
 
     SomeObject();
     virtual ~SomeObject();
@@ -61,23 +63,17 @@ public:
 
     float getSomefloat() const;
     void setSomefloat(float somefloat);
-    bool isSomebool() const;
-    void setSomebool(bool somebool);
     int getSomeint() const;
     void setSomeint(int someint);
 
 private:
-    int someint;
-    bool somebool;
-    float somefloat;
-    std::shared_ptr<AbstractState> _currentState;
+    int someint={0};
+    bool somebool={false};
+    float somefloat={0};
+    AbstractState* _currentState;
 
     friend class AbstractState;
-    void ChangeState(std::shared_ptr<AbstractState> newState);
+    void ChangeState(AbstractState* newState);
 };
-
-
-
-
 
 #endif //LEARNINGTEST_STATE_H
