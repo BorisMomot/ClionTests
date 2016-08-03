@@ -12,6 +12,7 @@ class MazeGame {
 public:
     MazeGame(){};
     Maze* CreateMaze(MazeFactory& );
+
 private:
     Maze* _Maze;
 };
