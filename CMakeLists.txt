@@ -8,6 +8,7 @@ add_subdirectory(class1)
 add_subdirectory(tests)
 add_subdirectory(State)
 add_subdirectory(AbstractFactory)
+add_subdirectory(Builder)
 
 #include_directories(class1)
 
