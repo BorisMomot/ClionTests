@@ -9,6 +9,7 @@ add_subdirectory(tests)
 add_subdirectory(State)
 add_subdirectory(AbstractFactory)
 add_subdirectory(Builder)
+add_subdirectory(turtleGMock)
 
 #include_directories(class1)
 
